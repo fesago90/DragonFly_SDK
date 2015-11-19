@@ -1,0 +1,26 @@
+﻿<Window x:Class="AlphaUtilityWF.OfflineGraphsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Offline Graphs Window" Height="480" Width="640">
+    <Grid>
+        <ComboBox x:Name="cbbItem" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbbItem_SelectionChanged">
+            <ComboBoxItem Content="Accelerometer"/>
+            <ComboBoxItem Content="Gyroscope"/>
+            <ComboBoxItem Content="Optical Flow"/>
+            <ComboBoxItem Content="Ref Angles"/>
+            <ComboBoxItem Content="Attitude"/>
+            <ComboBoxItem Content="Gyro x vs OFC x"/>
+            <ComboBoxItem Content="Gyro y vs OFC y"/>
+            <ComboBoxItem Content="Sonar reading"/>
+            <ComboBoxItem Content="Matnetometer"/>
+            <ComboBoxItem Content="Motor PWM"/>
+            <ComboBoxItem Content="Position"/>
+            <ComboBoxItem Content="Velocity"/>
+        </ComboBox>
+        <Viewbox Margin="10,40,10,10">
+            <Grid Background="#FFD5D8DD">
+                <WindowsFormsHost x:Name="wfhOffline" Height="400" Width="620"/>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</Window>

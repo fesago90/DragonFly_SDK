@@ -1,0 +1,16 @@
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\bin\Debug\TechJectSDK.exe.config
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\UserInterface.csprojResolveAssemblyReference.cache
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\MainWindow.baml
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\MainWindow.g.cs
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\App.g.cs
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\TechJectSDK_MarkupCompile.cache
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\TechJectSDK.g.resources
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\TechJectSDK.Properties.Resources.resources
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\UserInterface.csproj.GenerateResource.Cache
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\bin\Debug\aardvark.dll
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\bin\Debug\TechJectSDK.exe
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\bin\Debug\TechJectSDK.pdb
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\bin\Debug\TechJectSDK.dll
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\bin\Debug\MCP2210DLL-M.dll
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\TechJectSDK.exe
+C:\Mengzhe\TechJectSDK_Mengzhe\UserInterface\obj\Debug\TechJectSDK.pdb

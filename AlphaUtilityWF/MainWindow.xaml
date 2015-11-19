@@ -1,0 +1,556 @@
+﻿<Window x:Class="AlphaUtilityWF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        Title="TechJect NXDrone SDK 1.2.7 - PX4FLOW" Height="800" Width="1200" Loaded="Window_Loaded" Closed="Window_Closed" TabIndex="0">
+    <Grid x:Name="winSDK" Background="#FF535353">
+        <Button x:Name="btnUpdateFirmware" Content="Firmware Upload" Height="25" Margin="10,16,0,0" VerticalAlignment="Top" Click="btnUpdateFirmware_Click" RenderTransformOrigin="0.6,0.467" HorizontalAlignment="Left" Width="120"/>
+        <Button x:Name="btnConnect" Content="Connect" Height="25" Margin="0,16,10,0" VerticalAlignment="Top" Click="btnConnect_Click" HorizontalAlignment="Right" Width="120"/>
+        <Button x:Name="btnStart" Style="{StaticResource GreenButton}" Content="Start" Margin="0,16,265,0" Click="btnStart_Click" OpacityMask="Black" HorizontalAlignment="Right" Width="75" Height="25" VerticalAlignment="Top"/>
+        <Button x:Name="btnStop" Style="{StaticResource RedButton}" Content="E-Stop" HorizontalAlignment="Right" Margin="0,16,160,0" VerticalAlignment="Top" Width="75" Height="25" Click="btnStop_Click"/>
+        <TabControl x:Name="tabGlobal" Margin="10,60,10,10">
+            <TabItem x:Name="tabGraphicView" Header="Graphic View" >
+                <Viewbox HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" >
+                    <Grid Background="#FFD5D8DD" Width="950" Height="550">
+                        <WindowsFormsHost x:Name="wfhAttitude" HorizontalAlignment="Left" Height="398" Margin="176,51,0,0" VerticalAlignment="Top" Width="598"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="30" Margin="175,20,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="600" StrokeThickness="0"/>
+                        <Label x:Name="labAttitude" Content="Attitude" HorizontalAlignment="Left" Margin="185,27,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame x:Name="frmAttitude" Content="" Height="400" Margin="175,50,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="600"/>
+                        <Slider x:Name="sldAttitudePitch" HorizontalAlignment="Left" Margin="-56,236,0,0" VerticalAlignment="Top" Width="416" RenderTransformOrigin="0.5,0.5" Maximum="200" Minimum="-200" IsEnabled="False" TickPlacement="Both" TickFrequency="10">
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <TextBox x:Name="tbxRollAngle" HorizontalAlignment="Left" Height="23" Margin="175,494,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+                        <TextBox x:Name="tbxPitchAngle" HorizontalAlignment="Left" Height="23" Margin="365,494,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+                        <Label Content="Roll angle" HorizontalAlignment="Left" Margin="175,475,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Pitch angle" HorizontalAlignment="Left" Margin="365,475,0,0" VerticalAlignment="Top"/>
+                        <Label Content="0" HorizontalAlignment="Left" Margin="123,244,0,0" VerticalAlignment="Top"/>
+                        <Label Content="20" HorizontalAlignment="Left" Margin="116,209,0,0" VerticalAlignment="Top"/>
+                        <Label Content="-20" HorizontalAlignment="Left" Margin="112,278,0,0" VerticalAlignment="Top"/>
+                        <Label Content="40" HorizontalAlignment="Left" Margin="116,173,0,0" VerticalAlignment="Top"/>
+                        <Label Content="-40" HorizontalAlignment="Left" Margin="112,313,0,0" VerticalAlignment="Top"/>
+                        <Label Content="60" HorizontalAlignment="Left" Margin="116,139,0,0" VerticalAlignment="Top"/>
+                        <Label Content="-60" HorizontalAlignment="Left" Margin="112,349,0,0" VerticalAlignment="Top"/>
+                        <Label Content="80" HorizontalAlignment="Left" Margin="116,104,0,0" VerticalAlignment="Top"/>
+                        <Label Content="-80" HorizontalAlignment="Left" Margin="112,383,0,0" VerticalAlignment="Top"/>
+                        <Label Content="100" HorizontalAlignment="Left" Margin="110,68,0,0" VerticalAlignment="Top"/>
+                        <Label Content="-100" HorizontalAlignment="Left" Margin="106,419,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+            <TabItem x:Name="tabEngineeringView1" Header="Engineering View 1">
+                <Viewbox HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" >
+                    <Grid Background="#FFD5D8DD" Width="1120" Height="620" >
+                        <WindowsFormsHost x:Name="wfhAccelGraph" HorizontalAlignment="Left" Height="163" Margin="11,26,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labAccelGraph" Content="Accelerometer" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="10,25,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhGyroGraph" HorizontalAlignment="Left" Height="163" Margin="326,26,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="325,0,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labGyroGraph" Content="Gyroscope" HorizontalAlignment="Left" Margin="335,5,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="325,25,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhCompassGraph" HorizontalAlignment="Left" Height="163" Margin="642,26,0,0" VerticalAlignment="Top" Width="298" />
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="641,0,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labCompassGraph" Content="Gyro x vs OFC x" HorizontalAlignment="Left" Margin="651,5,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="641,25,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhVoltageGraph" HorizontalAlignment="Left" Height="163" Margin="11,238,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="10,212,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labVoltageGraph" Content="OFC" HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="10,237,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhMotorGraph" HorizontalAlignment="Left" Height="163" Margin="326,238,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="325,212,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labMotorGraph" Content="Reference Angle" HorizontalAlignment="Left" Margin="335,217,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="325,237,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhGpsGraph" Height="163" Margin="641,238,0,0" VerticalAlignment="Top" Width="298" HorizontalAlignment="Left"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="640,212,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labGpsGraph" Content="Gyro y vs OFC y" HorizontalAlignment="Left" Margin="650,217,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="640,237,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhPressureGraph" HorizontalAlignment="Left" Height="163" Margin="11,451,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="10,425,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labPressureGraph" Content="Roll" HorizontalAlignment="Left" Margin="20,430,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="10,450,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhHumidtyGraph" HorizontalAlignment="Left" Height="163" Margin="326,451,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="325,425,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labHumidtyGraph" Content="Pitch" HorizontalAlignment="Left" Margin="335,430,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="325,450,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhTemperatureGraph" Height="163" HorizontalAlignment="Left" Margin="641,451,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="640,425,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labTemperatureGraph" Content="Yaw" HorizontalAlignment="Left" Margin="650,430,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="640,450,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="951,35,0,0" VerticalAlignment="Top" Width="94" Click="btnClear_Click" Height="25"/>
+                        <CheckBox x:Name="cbxEnableGraphs" Content="Enable graphs" HorizontalAlignment="Left" Margin="951,5,0,0" VerticalAlignment="Top" Foreground="Black"/>
+
+                        <Grid HorizontalAlignment="Left" Height="287" Margin="951,328,0,0" VerticalAlignment="Top" Width="161">
+                            <Label Content="Number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,27,0,0"/>
+                            <TextBox x:Name="tbxSavePacketNumber" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" Margin="79,22,0,0" Text="10000"/>
+                            <Button x:Name="btnSavePacketUp" Content="˄" HorizontalAlignment="Left" VerticalAlignment="Top" Width="25" Height="23" Margin="132,22,0,0" Click="btnSavePacketUp_Click"/>
+                            <Button x:Name="btnSavePacketDown" Content="˅" HorizontalAlignment="Left" VerticalAlignment="Top" Width="25" Height="23" Margin="54,22,0,0" Click="btnSavePacketDown_Click"/>
+                            <Label Content="Format" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,56,0,0"/>
+                            <ComboBox x:Name="cbbSavePacketFormat" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Margin="54,53,0,0" SelectedIndex="0"/>
+                            <Label Content="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,85,0,0"/>
+                            <ComboBox x:Name="cbbSavePacketType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" RenderTransformOrigin="0.448,0.499" Margin="54,82,0,0" SelectedIndex="0">
+                                <ComboBoxItem Content="All"/>
+                                <ComboBoxItem Content="Sensor state"/>
+                            </ComboBox>
+                            <Button x:Name="btnSavePacketFile" Content="Select save file" HorizontalAlignment="Left" VerticalAlignment="Top" Width="107" Click="btnSelectCaptureFile_Click" Height="25" Margin="3,113,0,0"/>
+                            <TextBox x:Name="tbxSavePacketFile" HorizontalAlignment="Left" Height="64" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="3,151,0,0" IsReadOnly="True" AcceptsReturn="True"/>
+                            <Button x:Name="btnSavePacketCapture" Content="Capture" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Click="btnSavePacketCapture_Click" Height="25" Margin="3,227,0,0"/>
+                            <Button x:Name="btnPlotOfflineGraphs" Content="Plot Graphs" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="25" Margin="87,227,0,0" Click="btnPlotOfflineGraphs_Click"/>
+                            <ProgressBar x:Name="pbrCapture" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="157" Margin="0,265,0,0" />
+                        </Grid>
+
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+            <TabItem x:Name="tabEngineeringView2" Header="Engineering View 2">
+                <Viewbox HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" >
+                    <Grid Background="#FFD5D8DD" Width="1120" Height="620" >
+                        <WindowsFormsHost x:Name="wfhMagGraph" HorizontalAlignment="Left" Height="163" Margin="11,26,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labMagGraph" Content="Magnetometer" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="10,25,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhMotorsGraph" HorizontalAlignment="Left" Height="163" Margin="326,26,0,0" VerticalAlignment="Top" Width="298"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="325,0,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labMotorsGraph" Content="Motor PWM" HorizontalAlignment="Left" Margin="335,5,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="325,25,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhPosGraph" HorizontalAlignment="Left" Height="163" Margin="642,26,0,0" VerticalAlignment="Top" Width="298" />
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="641,0,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labPosGraph" Content="Position" HorizontalAlignment="Left" Margin="651,5,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="641,25,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <WindowsFormsHost x:Name="wfhVelGraph" HorizontalAlignment="Left" Height="163" Margin="11,238,0,0" VerticalAlignment="Top" Width="298" />
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="25" Margin="10,212,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="300" StrokeThickness="0"/>
+                        <Label x:Name="labVelGraph" Content="Velocity" HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE" Width="94"/>
+                        <Frame Content="" Height="165" Margin="10,237,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="300"/>
+
+                        <Button x:Name="btnClear2" Content="Clear" HorizontalAlignment="Left" Margin="951,35,0,0" VerticalAlignment="Top" Width="94" Click="btnClear_Click2" Height="25"/>
+                        <CheckBox x:Name="cbxEnableGraphs2" Content="Enable graphs" HorizontalAlignment="Left" Margin="951,5,0,0" VerticalAlignment="Top" Foreground="Black"/>
+
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+            <TabItem x:Name="tabPidTuning" Header="PID Tuning" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top">
+                <Viewbox HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" >
+                    <Grid Background="#FFD5D8DD" Width="950" Height="550" >
+                        <Slider x:Name="sldPidThrottle" HorizontalAlignment="Left" Margin="15,28,0,0" VerticalAlignment="Top" Width="470" Maximum="255" TickPlacement="Both" TickFrequency="5" ValueChanged="Throttles_ValueChanged" SmallChange="1" LargeChange="5" ToolTip="Throttle tuning (0 ~ 255)"/>
+                        <Label x:Name="labPidThrottle" Content="Throttle" HorizontalAlignment="Left" Margin="15,7,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labPidThrottleValue" Content="0" HorizontalAlignment="Left" Margin="445,7,0,0" VerticalAlignment="Top" FontSize="14" Width="40" UseLayoutRounding="False"/>
+                        <Label x:Name="labPidMainMotor" Content="Main Motor Power" HorizontalAlignment="Left" Margin="15,60,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labPidMainMotorValue" Content="0" HorizontalAlignment="Left" Margin="445,60,0,0" VerticalAlignment="Top" FontSize="14" Width="40" UseLayoutRounding="False"/>
+                        <Slider x:Name="sldPidMainMotor" HorizontalAlignment="Left" Margin="15,81,0,0" VerticalAlignment="Top" Width="470" Maximum="100" TickPlacement="Both" TickFrequency="2" ValueChanged="DFAddional_ValueChanged" SmallChange="0.5" ToolTip="Main motor power control (0 ~ 100)" LargeChange="2"/>
+                        <Slider x:Name="sldRollTrim" HorizontalAlignment="Left" Margin="15,148,0,0" VerticalAlignment="Top" Width="260" TickPlacement="Both" ValueChanged="Trim_ValueChanged" SmallChange="0.2" Minimum="-45" ToolTip="Roll trim (-127 ~ 127)" Maximum="45" TickFrequency="5"/>
+                        <Slider x:Name="sldPitchTrim" HorizontalAlignment="Left" Margin="325,148,0,0" VerticalAlignment="Top" Width="260" TickPlacement="Both" ValueChanged="Trim_ValueChanged" SmallChange="0.2" Minimum="-45" ToolTip="Pitch trim (-127 ~ 127)" Maximum="45" TickFrequency="5"/>
+                        <Slider x:Name="sldYawTrim" HorizontalAlignment="Left" Margin="635,148,0,0" VerticalAlignment="Top" Width="260" TickPlacement="Both" ValueChanged="Trim_ValueChanged" SmallChange="0.2" Minimum="-45" ToolTip="Yaw trim (-127 ~ 127)" Maximum="45" TickFrequency="5"/>
+                        <Label x:Name="labRollTrim" Content="Roll Trim" HorizontalAlignment="Left" Margin="15,127,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labPitchTrim" Content="Pitch Trim" HorizontalAlignment="Left" Margin="325,127,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labYawTrim" Content="Yaw Trim" HorizontalAlignment="Left" Margin="635,127,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <ComboBox x:Name="cbbAltHold" HorizontalAlignment="Left" Margin="619,8,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbAltHold_DropDownClosed" SelectedIndex="0">
+                            <ComboBoxItem Content=""/>
+                            <ComboBoxItem Content="Take-Off"/>
+                            <ComboBoxItem Content="Alt Hold"/>
+                            <ComboBoxItem Content="Landing"/>
+                        </ComboBox>
+                        <Label Content="Select State" HorizontalAlignment="Left" Margin="514,11,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label Content="Alt Reading" HorizontalAlignment="Left" Margin="514,60,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbAltReading" HorizontalAlignment="Left" Height="23" Margin="619,58,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="75"/>
+                        <!--<Label Content="Is Alt Panic?" HorizontalAlignment="Left" Margin="720,84,0,0" VerticalAlignment="Top" FontSize="14"/>-->
+                        <Label Content="Target Alt" HorizontalAlignment="Left" Margin="720,84,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbAltPanic" HorizontalAlignment="Left" Height="23" Margin="825,82,0,0" TextWrapping="Wrap" Text="No" VerticalAlignment="Top" Width="75"/>
+                        <TabControl HorizontalAlignment="Left" Height="310" Margin="15,193,0,0" VerticalAlignment="Top" Width="300">
+                            <TabItem Header="Position Y" Height="27" VerticalAlignment="Bottom">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="275">
+                                    <Slider x:Name="sldPosRollKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Roll Kp tuning in the position control (0 ~ 1)"/>
+                                    <Slider x:Name="sldPosRollKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Roll Ki tuning in the position control (0 ~ 1)"/>
+                                    <Slider x:Name="sldPosRollKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Roll Kd tuning in the position control (0 ~ 1)"/>
+                                    <Label x:Name="labPosRollKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14"/>
+                                    <Label x:Name="labPosRollKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14"/>
+                                    <Label x:Name="labPosRollKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14"/>
+                                    <TextBox x:Name="tbxPosRollKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosRollKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnPosRollKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Tag="0" Click="Gains_DownClick"/>
+                                    <TextBox x:Name="tbxPosRollKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosRollKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnPosRollKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxPosRollKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosRollKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnPosRollKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Roll Angle">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="300">
+                                    <Slider x:Name="sldAglRollKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Roll Kp tuning in the angle control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAglRollKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Roll Ki tuning in the angle control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAglRollKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Roll Kd tuning in the angle control (0 ~ 1)"/>
+                                    <Label x:Name="labAglRollKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14"/>
+                                    <Label x:Name="labAglRollKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14"/>
+                                    <Label x:Name="labAglRollKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14"/>
+                                    <TextBox x:Name="tbxAglRollKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglRollKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnAglRollKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxAglRollKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglRollKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnAglRollKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxAglRollKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglRollKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnAglRollKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Roll Angular Rate">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="300">
+                                    <Slider x:Name="sldAgrRollKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Roll Kp tuning in the angular rate control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAgrRollKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Roll Ki tuning in the angular rate control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAgrRollKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Roll Kd tuning in the angular rate control (0 ~ 1)"/>
+                                    <Label x:Name="labAgrRollKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAgrRollKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAgrRollKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxAgrRollKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrRollKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnAgrRollKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxAgrRollKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrRollKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnAgrRollKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxAgrRollKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrRollKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnAgrRollKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                        <TabControl HorizontalAlignment="Left" Height="310" Margin="325,193,0,0" VerticalAlignment="Top" Width="300">
+                            <TabItem Header="Position X" Height="27" VerticalAlignment="Bottom">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="275">
+                                    <Slider x:Name="sldPosPitchKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Pitch Kp tuning in the position control (0 ~ 1)"/>
+                                    <Slider x:Name="sldPosPitchKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Pitch Ki tuning in the position control (0 ~ 1)"/>
+                                    <Slider x:Name="sldPosPitchKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Pitch Kd tuning in the position control (0 ~ 1)"/>
+                                    <Label x:Name="labPosPitchKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labPosPitchKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labPosPitchKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxPosPitchKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosPitchKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnPosPitchKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxPosPitchKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosPitchKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnPosPitchKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxPosPitchKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosPitchKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnPosPitchKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Pitch Angle">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="300">
+                                    <Slider x:Name="sldAglPitchKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Pitch Kp tuning in the angle control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAglPitchKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Pitch Ki tuning in the angle control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAglPitchKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Pitch Kd tuning in the angle control (0 ~ 1)"/>
+                                    <Label x:Name="labAglPitchKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAglPitchKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAglPitchKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxAglPitchKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglPitchKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnAglPitchKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxAglPitchKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglPitchKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnAglPitchKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxAglPitchKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglPitchKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnAglPitchKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Pitch Angular Rate">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="285">
+                                    <Slider x:Name="sldAgrPitchKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Pitch Kp tuning in the angular rate control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAgrPitchKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Pitch Ki tuning in the angular rate control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAgrPitchKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Pitch Kd tuning in the angular rate control (0 ~ 1)"/>
+                                    <Label x:Name="labAgrPitchKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAgrPitchKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAgrPitchKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxAgrPitchKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrPitchKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnAgrPitchKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxAgrPitchKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrPitchKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnAgrPitchKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxAgrPitchKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrPitchKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnAgrPitchKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                        <TabControl HorizontalAlignment="Left" Height="310" Margin="635,193,0,0" VerticalAlignment="Top" Width="300">
+                            <TabItem Header="Position Z" Height="27" VerticalAlignment="Bottom">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="275">
+                                    <Slider x:Name="sldPosYawKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Yaw Kp tuning in the position control (0 ~ 1)"/>
+                                    <Slider x:Name="sldPosYawKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Yaw Ki tuning in the position control (0 ~ 1)"/>
+                                    <Slider x:Name="sldPosYawKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Yaw Kd tuning in the position control (0 ~ 1)"/>
+                                    <Label x:Name="labPosYawKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labPosYawKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labPosYawKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxPosYawKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosYawKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnPosYawKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxPosYawKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosYawKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnPosYawKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxPosYawKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnPosYawKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnPosYawKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Yaw Angle">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="300">
+                                    <Slider x:Name="sldAglYawKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Yaw Kp tuning in the Angle control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAglYawKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Yaw Ki tuning in the Angle control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAglYawKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Yaw Kd tuning in the Angle control (0 ~ 1)"/>
+                                    <Label x:Name="labAglYawKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAglYawKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAglYawKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxAglYawKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglYawKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnAglYawKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxAglYawKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglYawKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnAglYawKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxAglYawKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAglYawKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnAglYawKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Yaw Angular Rate">
+                                <Grid Background="#FFE5E5E5" Width="280" Height="285">
+                                    <Slider x:Name="sldAgrYawKp" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="0" ToolTip="Yaw Kp tuning in the angular rate control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAgrYawKi" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="1" ToolTip="Yaw Ki tuning in the angular rate control (0 ~ 1)"/>
+                                    <Slider x:Name="sldAgrYawKd" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="215" Maximum="32767" TickPlacement="Both" TickFrequency="1000" ValueChanged="Gains_ValueChanged" SmallChange="5" LargeChange="10" Tag="2" ToolTip="Yaw Kd tuning in the angular rate control (0 ~ 1)"/>
+                                    <Label x:Name="labAgrYawKp" Content="Kp" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAgrYawKi" Content="Ki" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <Label x:Name="labAgrYawKd" Content="Kd" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" FontSize="14" />
+                                    <TextBox x:Name="tbxAgrYawKpValue" Height="23" Margin="225,39,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrYawKpUp" Content="Up" HorizontalAlignment="Left" Margin="225,14,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="0"/>
+                                    <Button x:Name="btnAgrYawKpDown" Content="Down" HorizontalAlignment="Left" Margin="225,67,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="0"/>
+                                    <TextBox x:Name="tbxAgrYawKiValue" Height="23" Margin="225,129,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrYawKiUp" Content="Up" HorizontalAlignment="Left" Margin="225,104,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="1"/>
+                                    <Button x:Name="btnAgrYawKiDown" Content="Down" HorizontalAlignment="Left" Margin="225,157,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="1"/>
+                                    <TextBox x:Name="tbxAgrYawKdValue" Height="23" Margin="225,219,10,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" KeyDown="Gains_KeyDown"/>
+                                    <Button x:Name="btnAgrYawKdUp" Content="Up" HorizontalAlignment="Left" Margin="225,194,0,0" VerticalAlignment="Top" Width="45" Click="Gains_UpClick" Tag="2"/>
+                                    <Button x:Name="btnAgrYawKdDown" Content="Down" HorizontalAlignment="Left" Margin="225,247,0,0" VerticalAlignment="Top" Width="45" Click="Gains_DownClick" Tag="2"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                        <Frame Content="" Height="50" Margin="720,20,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="200"/>
+                        <TextBox x:Name="tbxPidTimerRef" HorizontalAlignment="Left" Height="23" Margin="828,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TextChanged="TimerRef_TextChanged"/>
+                        <Label x:Name="labPidTimer" Content="00:00:00" HorizontalAlignment="Left" Margin="738,34,0,0" VerticalAlignment="Top" Height="23" Width="75" FontSize="18"/>
+                        <CheckBox x:Name="cbxLockRollPitch" Content="Lock roll pitch" HorizontalAlignment="Left" Margin="15,518,0,0" VerticalAlignment="Top" Foreground="Black"/>
+                        <TextBox x:Name="tbxRollTrimValue" Height="23" Margin="275,152,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Trim_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <TextBox x:Name="tbxPitchTrimValue" Height="23" Margin="585,152,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Trim_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <TextBox x:Name="tbxYawTrimValue" Height="23" Margin="895,152,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Trim_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <Button Content="Save settings" HorizontalAlignment="Left" Margin="691,513,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btnSaveTuningSetting_Click"/>
+                        <Button Content="Load settings" HorizontalAlignment="Left" Margin="835,513,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btnLoadTuningSetting_Click"/>
+                        <Label Content="Position Hld" HorizontalAlignment="Left" Margin="514,33,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <ComboBox x:Name="cbbPosHld" HorizontalAlignment="Left" Margin="619,33,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbPosHld_DropDownClosed">
+                            <ComboBoxItem Content="Disable"/>
+                            <ComboBoxItem Content="Enable"/>
+                        </ComboBox>
+                        <ComboBox x:Name="cbbPx4flow" HorizontalAlignment="Left" Margin="619,90,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbPx4flow_DropDownClosed">
+                            <ComboBoxItem Content="Disable"/>
+                            <ComboBoxItem Content="Enable"/>
+                        </ComboBox>
+                        <Label Content="PX4FLOW" HorizontalAlignment="Left" Margin="514,90,0,0" VerticalAlignment="Top" FontSize="14"/>
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+            <TabItem x:Name="tabDFTuning" Header="DragonFly Tuning" Margin="4,0,-4,0">
+                <Viewbox HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" >
+                    <Grid Background="#FFD5D8DD" Width="950" Height="550" >
+                        <Image Source="/Images/dragonfly.png" HorizontalAlignment="Left" Height="391" Margin="15,154,0,0" VerticalAlignment="Top" Width="631" Opacity="0.5"/>
+                        <Frame Content="" Height="421" Margin="15,124,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="631"/>
+
+                        <Label x:Name="labDFThrottle" Content="Throttle" HorizontalAlignment="Left" Margin="15,7,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFThrottleValue" Content="0" HorizontalAlignment="Left" Margin="445,7,0,0" VerticalAlignment="Top" FontSize="14" Width="40" UseLayoutRounding="False" RenderTransformOrigin="-0.316,0.177" />
+                        <Slider x:Name="sldDFThrottle" HorizontalAlignment="Left" Margin="15,28,0,0" VerticalAlignment="Top" Width="470" Maximum="255" TickPlacement="Both" TickFrequency="5" ValueChanged="Throttles_ValueChanged" SmallChange="1" ToolTip="Throttle tuning (0 ~ 255)" LargeChange="5"/>
+
+                        <Label x:Name="labDFMainMotor" Content="Main Motor Power" HorizontalAlignment="Left" Margin="15,60,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFMainMotorValue" Content="0" HorizontalAlignment="Left" Margin="445,60,0,0" VerticalAlignment="Top" FontSize="14" Width="40" UseLayoutRounding="False" RenderTransformOrigin="-0.316,0.177" />
+                        <Slider x:Name="sldDFMainMotor" HorizontalAlignment="Left" Margin="15,81,0,0" VerticalAlignment="Top" Width="470" Maximum="100" TickPlacement="Both" TickFrequency="2" ValueChanged="DFAddional_ValueChanged" SmallChange="0.5" ToolTip="Main motor power control (0 ~ 100)" LargeChange="2"/>
+                        <Slider x:Name="sldDFServoNom" HorizontalAlignment="Left" Margin="677,406,0,0" VerticalAlignment="Top" Width="246" Maximum="100" TickPlacement="Both" TickFrequency="2" ValueChanged="DFAddional_ValueChanged" SmallChange="0.5" ToolTip="Nominal tuning for servos (0 ~ 100)" LargeChange="2"/>
+                        <ComboBox x:Name="cbbWingSeq" HorizontalAlignment="Left" Margin="621,20,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbRobotInitialization_DropDownClosed">
+                            <ComboBoxItem Content="Disabled"/>
+                            <ComboBoxItem Content="Enabled"/>
+                        </ComboBox>
+                        <ComboBox x:Name="cbbRCCalibration" HorizontalAlignment="Left" Margin="621,50,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbRobotInitialization_DropDownClosed">
+                            <ComboBoxItem Content="Disabled"/>
+                            <ComboBoxItem Content="Enabled"/>
+                        </ComboBox>
+                        <Button x:Name="btnUpdateTuningValues" Content="Update values" HorizontalAlignment="Left" Margin="670,491,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btnUpdateTuningValues_Click"/>
+                        <Button x:Name="btnSaveTuningSetting" Content="Save Setting" HorizontalAlignment="Left" Margin="670,453,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btnSaveTuningSetting_Click"/>
+                        <Button x:Name="btnLoadTuningSetting" Content="Load Setting" HorizontalAlignment="Left" Margin="832,453,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="btnLoadTuningSetting_Click"/>
+                        <Frame Content="" Height="50" Margin="720,20,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="200"/>
+                        <TextBox x:Name="tbxDFTimerRef" HorizontalAlignment="Left" Height="23" Margin="828,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TextChanged="TimerRef_TextChanged"/>
+                        <Label x:Name="labDFTimer" Content="00:00:00" HorizontalAlignment="Left" Margin="738,34,0,0" VerticalAlignment="Top" Height="23" Width="75" FontSize="18"/>
+                        <Frame Content="" Height="238" Margin="670,124,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="262"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="30" Margin="670,124,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="262" StrokeThickness="0"/>
+                        <Label x:Name="labSaturation" Content="Saturation" HorizontalAlignment="Left" Margin="677,131,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE"/>
+                        <Slider x:Name="sldDFServoSat" HorizontalAlignment="Left" Margin="677,189,0,0" VerticalAlignment="Top" Width="246" Maximum="30" TickPlacement="Both" TickFrequency="1.5" LargeChange="2" SmallChange="0.5" ValueChanged="DFAddional_ValueChanged" ToolTip="Saturation tuning for servos (0 ~ 30)" Height="33"/>
+                        <Label x:Name="labDFServoSat" Content="Servo" HorizontalAlignment="Left" Margin="677,165,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbxDFServoSatValue" Height="23" Margin="883,165,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Saturation_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <Slider x:Name="sldDFPitchSat" HorizontalAlignment="Left" Margin="677,253,0,0" VerticalAlignment="Top" Width="246" Maximum="50" TickPlacement="Both" TickFrequency="2" ValueChanged="DFAddional_ValueChanged" SmallChange="0.5" LargeChange="2" ToolTip="Saturation tuning for pitch control (0 ~ 50)"/>
+                        <Label x:Name="labDFPitchSat" Content="Pitch" HorizontalAlignment="Left" Margin="677,227,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbxDFPitchSatValue" Height="23" Margin="883,227,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Saturation_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <Slider x:Name="sldDFYawSat" HorizontalAlignment="Left" Margin="677,315,0,0" VerticalAlignment="Top" Width="246" Maximum="50" TickPlacement="Both" TickFrequency="2" LargeChange="2" SmallChange="0.5" ValueChanged="DFAddional_ValueChanged" ToolTip="Saturation tuning for yaw control (0 ~ 50)"/>
+                        <Label x:Name="labDFYawSat" Content="Yaw" HorizontalAlignment="Left" Margin="677,289,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbxDFYawSatValue" Height="23" Margin="883,289,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Saturation_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="30" Margin="15,124,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="631" StrokeThickness="0"/>
+                        <Label x:Name="labDFPWMMinMax" Content="Wing Amplitude &amp; Servo Trim" HorizontalAlignment="Left" Margin="22,131,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE"/>
+                        <TextBox x:Name="tbxDFWingAmpFLMin" Height="23" Margin="105,230,0,0" TextWrapping="Wrap" Text="1700" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <Button x:Name="btnDFWingAmpFLMinUp" Content="Increase" HorizontalAlignment="Left" Margin="159,230,0,0" VerticalAlignment="Top" Width="57" Click="WingAmp_UpClick" Tag="0" Height="23"/>
+                        <Button x:Name="btnDFWingAmpFLMinDown" Content="Decrease" HorizontalAlignment="Left" Margin="159,258,0,0" VerticalAlignment="Top" Width="57" Tag="0" Click="WingAmp_DownClick" Height="23"/>
+                        <TextBox x:Name="tbxDFWingAmpFLMax" Height="23" Margin="105,258,0,0" TextWrapping="Wrap" Text="3800" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <TextBox x:Name="tbxDFWingAmpFRMin" Height="23" Margin="396,230,0,0" TextWrapping="Wrap" Text="3800" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <Button x:Name="btnDFWingAmpFRMinUp" Content="Decrease" HorizontalAlignment="Left" Margin="451,258,0,0" VerticalAlignment="Top" Width="57" Click="WingAmp_UpClick" Tag="0" Height="23"/>
+                        <Button x:Name="btnDFWingAmpFRMinDown" Content="Increase" HorizontalAlignment="Left" Margin="451,230,0,0" VerticalAlignment="Top" Width="57" Tag="0" Click="WingAmp_DownClick" Height="23"/>
+                        <TextBox x:Name="tbxDFWingAmpFRMax" Height="23" Margin="396,258,0,0" TextWrapping="Wrap" Text="1700" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <TextBox x:Name="tbxDFWingAmpBLMin" Height="23" Margin="105,403,0,0" TextWrapping="Wrap" Text="3800" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <Button x:Name="btnDFWingAmpBLMinUp" Content="Decrease" HorizontalAlignment="Left" Margin="159,431,0,0" VerticalAlignment="Top" Width="57" Click="WingAmp_UpClick" Tag="0" Height="23"/>
+                        <Button x:Name="btnDFWingAmpBLMinDown" Content="Increase" HorizontalAlignment="Left" Margin="159,403,0,0" VerticalAlignment="Top" Width="57" Tag="0" Click="WingAmp_DownClick" Height="23"/>
+                        <TextBox x:Name="tbxDFWingAmpBLMax" Height="23" Margin="105,431,0,0" TextWrapping="Wrap" Text="1700" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <TextBox x:Name="tbxDFWingAmpBRMin" Height="23" Margin="396,403,0,0" TextWrapping="Wrap" Text="1700" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <Button x:Name="btnDFWingAmpBRMinUp" Content="Increase" HorizontalAlignment="Left" Margin="451,403,0,0" VerticalAlignment="Top" Width="57" Click="WingAmp_UpClick" Tag="0" Height="23"/>
+                        <Button x:Name="btnDFWingAmpBRMinDown" Content="Decrease" HorizontalAlignment="Left" Margin="451,431,0,0" VerticalAlignment="Top" Width="57" Tag="0" Click="WingAmp_DownClick" Height="23"/>
+                        <TextBox x:Name="tbxDFWingAmpBRMax" Height="23" Margin="396,431,0,0" TextWrapping="Wrap" Text="3800" VerticalAlignment="Top" KeyDown="WingAmpMinMax_KeyDown" HorizontalAlignment="Left" Width="50"/>
+                        <Label x:Name="labDFWingAmpFLMin" Content="Min" HorizontalAlignment="Left" Margin="78,234,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFWingAmpFLMax" Content="Max" HorizontalAlignment="Left" Margin="78,260,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFWingAmpBLMin" Content="Min" HorizontalAlignment="Left" Margin="78,406,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFWingAmpBLMax" Content="Max" HorizontalAlignment="Left" Margin="78,433,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFWingAmpFRMin" Content="Min" HorizontalAlignment="Left" Margin="369,234,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.621,0.16"/>
+                        <Label x:Name="labDFWingAmpFRMax" Content="Max" HorizontalAlignment="Left" Margin="369,260,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFWingAmpBRMin" Content="Min" HorizontalAlignment="Left" Margin="369,406,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFWingAmpBRMax" Content="Max" HorizontalAlignment="Left" Margin="369,433,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Slider x:Name="sldDFServoTrimFL" HorizontalAlignment="Left" Margin="67,309,0,0" VerticalAlignment="Top" Width="166" Maximum="100" TickPlacement="Both" TickFrequency="10" LargeChange="2" SmallChange="1" ToolTip="Servo FL trim (-100 ~ 100)" ValueChanged="ServoTrim_ValueChanged" Minimum="-100"/>
+                        <TextBox x:Name="tbxDFServoTrimFLValue" Height="23" Margin="121,342,784,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="ServoTrim_KeyDown"/>
+                        <Button x:Name="btnDFServoTrimFLUp" Content="Up" HorizontalAlignment="Left" Margin="171,342,0,0" VerticalAlignment="Top" Width="45" Click="ServoTrim_UpClick" Tag="0"/>
+                        <Button x:Name="btnDFServoTrimFLDown" Content="Down" HorizontalAlignment="Left" Margin="71,343,0,0" VerticalAlignment="Top" Width="45" Tag="0" Click="ServoTrim_DownClick"/>
+                        <Slider x:Name="sldDFServoTrimFR" HorizontalAlignment="Left" Margin="389,309,0,0" VerticalAlignment="Top" Width="166" Maximum="100" TickPlacement="Both" TickFrequency="10" LargeChange="2" SmallChange="1" ValueChanged="ServoTrim_ValueChanged" ToolTip="Servo FR trim (-100 ~ 100)" Minimum="-100"/>
+                        <TextBox x:Name="tbxDFServoTrimFRValue" Height="23" Margin="445,342,460,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="ServoTrim_KeyDown"/>
+                        <Button x:Name="btnDFServoTrimFRUp" Content="Up" HorizontalAlignment="Left" Margin="495,345,0,0" VerticalAlignment="Top" Width="45" Click="ServoTrim_UpClick" Tag="0"/>
+                        <Button x:Name="btnDFServoTrimFRDown" Content="Down" HorizontalAlignment="Left" Margin="395,343,0,0" VerticalAlignment="Top" Width="45" Tag="0" Click="ServoTrim_DownClick"/>
+                        <Slider x:Name="sldDFServoTrimBL" HorizontalAlignment="Left" Margin="67,481,0,0" VerticalAlignment="Top" Width="166" Maximum="100" TickPlacement="Both" TickFrequency="10" LargeChange="2" SmallChange="1" ValueChanged="ServoTrim_ValueChanged" ToolTip="Servo RL trim (-100 ~ 100)" Minimum="-100"/>
+                        <TextBox x:Name="tbxDFServoTrimBLValue" Height="23" Margin="121,512,784,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="ServoTrim_KeyDown"/>
+                        <Button x:Name="btnDFServoTrimBLUp" Content="Up" HorizontalAlignment="Left" Margin="171,513,0,0" VerticalAlignment="Top" Width="45" Click="ServoTrim_UpClick" Tag="0"/>
+                        <Button x:Name="btnDFServoTrimBLDown" Content="Down" HorizontalAlignment="Left" Margin="71,513,0,0" VerticalAlignment="Top" Width="45" Tag="0" Click="ServoTrim_DownClick"/>
+                        <Slider x:Name="sldDFServoTrimBR" HorizontalAlignment="Left" Margin="389,481,0,0" VerticalAlignment="Top" Width="166" Maximum="100" TickPlacement="Both" TickFrequency="10" LargeChange="2" SmallChange="1" ValueChanged="ServoTrim_ValueChanged" ToolTip="Servo RR trim (-100 ~ 100)" Minimum="-100"/>
+                        <TextBox x:Name="tbxDFServoTrimBRValue" Height="23" Margin="445,511,460,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="ServoTrim_KeyDown"/>
+                        <Button x:Name="btnDFServoTrimBRUp" Content="Up" HorizontalAlignment="Left" Margin="495,512,0,0" VerticalAlignment="Top" Width="45" Click="ServoTrim_UpClick" Tag="0"/>
+                        <Button x:Name="btnDFServoTrimBRDown" Content="Down" HorizontalAlignment="Left" Margin="395,512,0,0" VerticalAlignment="Top" Width="45" Tag="0" Click="ServoTrim_DownClick"/>
+                        <Button x:Name="btnDFTrimReset" Content="Reset Trim" HorizontalAlignment="Left" Margin="329,129,0,0" VerticalAlignment="Top" Width="75" Click="btnDFTrimReset_Click"/>
+                        <Button x:Name="btnDFWingAmpReset" Content="Reset Wing Amplitude" HorizontalAlignment="Left" Margin="409,129,0,0" VerticalAlignment="Top" Width="125" Click="btnDFWingAmpReset_Click"/>
+                        <Button x:Name="btnDFServoTrimReset" Content="Reset Servo Trim" HorizontalAlignment="Left" Margin="539,129,0,0" VerticalAlignment="Top" Width="100" Click="btnDFServoTrimReset_Click"/>
+                        <Button x:Name="btnDFSaturationReset" Content="Reset" HorizontalAlignment="Left" Margin="849,129,0,0" VerticalAlignment="Top" Width="75" Click="btnDFSaturationReset_Click"/>
+                        <Label Content="Wing Sequence" HorizontalAlignment="Left" Margin="516,23,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label Content="RC Calibration" HorizontalAlignment="Left" Margin="516,53,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFServoNom" Content="Servo Nominal" HorizontalAlignment="Left" Margin="677,382,0,0" VerticalAlignment="Top" FontSize="14" />
+                        <Label x:Name="labDFServoNomValue" Content="0" HorizontalAlignment="Left" Margin="892,382,0,0" VerticalAlignment="Top" FontSize="14" Width="40" UseLayoutRounding="False" />
+                        <Slider x:Name="sldDFRollTrim" HorizontalAlignment="Left" Margin="95,181,0,0" VerticalAlignment="Top" Width="380" TickPlacement="Both" ValueChanged="Trim_ValueChanged" SmallChange="0.2" Minimum="-45" ToolTip="Roll trim (-127 ~ 127)" Maximum="45" TickFrequency="5"/>
+                        <Label x:Name="labDFRollTrim" Content="Roll Trim" HorizontalAlignment="Left" Margin="95,160,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbxDFRollTrimValue" Height="23" Margin="480,184,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Trim_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <Slider x:Name="sldDFPitchTrim" HorizontalAlignment="Left" Margin="457,326,0,0" VerticalAlignment="Top" Width="290" TickPlacement="Both" ValueChanged="Trim_ValueChanged" SmallChange="0.2" Minimum="-45" ToolTip="Pitch trim (-127 ~ 127)" Maximum="45" TickFrequency="5" RenderTransformOrigin="0.5,0.5">
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Label x:Name="labDFPitchTrim" Content="Pitch Trim" HorizontalAlignment="Left" Margin="570,175,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbxDFPitchTrimValue" Height="23" Margin="582,491,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Trim_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <WindowsFormsHost x:Name="wfhDFYawTrim" HorizontalAlignment="Left" Height="100" Margin="238,309,0,0" VerticalAlignment="Top" Width="100" ToolTip="Yaw trim (-45 ~ 45)"/>
+                        <TextBox x:Name="tbxDFYawTrimValue" Height="23" Margin="269,414,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" KeyDown="Trim_KeyDown" HorizontalAlignment="Left" Width="40"/>
+                        <Label x:Name="labDFYawTrim_Copy" Content="Yaw Trim" HorizontalAlignment="Left" Margin="260,288,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="labDFServoFLTrim" HorizontalAlignment="Left" Margin="21,310,0,0" VerticalAlignment="Top" FontSize="12" Width="45">
+                            <TextBlock>Servo FL<LineBreak/>Trim</TextBlock>
+                        </Label>
+                        <Label x:Name="labDFServoFRTrim" HorizontalAlignment="Left" Margin="341,310,0,0" VerticalAlignment="Top" FontSize="12" Width="50">
+                            <TextBlock>Servo FR<LineBreak/>Trim</TextBlock>
+                        </Label>
+                        <Label x:Name="labDFServoBLTrim" HorizontalAlignment="Left" Margin="21,482,0,0" VerticalAlignment="Top" FontSize="12" Width="45">
+                            <TextBlock>Servo RL<LineBreak/>Trim</TextBlock>
+                        </Label>
+                        <Label x:Name="labDFServoBRTrim" HorizontalAlignment="Left" Margin="341,482,0,0" VerticalAlignment="Top" FontSize="12" Width="50">
+                            <TextBlock>Servo BR<LineBreak/>Trim</TextBlock>
+                        </Label>
+                        <ComboBox x:Name="cbbRCFilter" HorizontalAlignment="Left" Margin="621,81,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbRobotInitialization_DropDownClosed">
+                            <ComboBoxItem Content="Disabled"/>
+                            <ComboBoxItem Content="Enabled"/>
+                        </ComboBox>
+                        <Label Content="RC Filter" HorizontalAlignment="Left" Margin="516,84,0,0" VerticalAlignment="Top" FontSize="14"/>
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+            <TabItem x:Name="tabOpticalFlow" Header="Optical Flow">
+                <Viewbox HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" >
+                    <Grid Background="#FFD5D8DD" Width="950" Height="550" >
+                        <WindowsFormsHost x:Name="wfhCamImage" HorizontalAlignment="Left" Width="332" Height="249" VerticalAlignment="Top" Margin="80,100,0,0" />
+                        <Frame Content="" Height="300" Margin="30,50,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FF9E9E9F" HorizontalAlignment="Left" Width="383"/>
+                        <Rectangle Fill="#FF535353" HorizontalAlignment="Left" Height="30" Margin="30,20,0,0" Stroke="#FF535353" VerticalAlignment="Top" Width="383" StrokeThickness="0"/>
+                        <Label x:Name="labImage" Content="Image" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top" Foreground="#FFFEFEFE"/>
+                        <Button x:Name="btnGetFrame" Content="Get a Frame" HorizontalAlignment="Left" Margin="297,386,0,0" VerticalAlignment="Top" Width="115" Height="25" Click="btnGetFrame_Click" IsEnabled="False"/>
+                        <Label x:Name="labCamera" Content="Select Camera" HorizontalAlignment="Left" Margin="30,432,0,0" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="cbbCamera" HorizontalAlignment="Left" Margin="131,426,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="OpticalFlow_SelectionChanged">
+                            <ComboBoxItem Content="Camera 1"/>
+                            <ComboBoxItem Content="Camera 2"/>
+                        </ComboBox>
+                        <Label x:Name="labCameraOption" Content="Option" HorizontalAlignment="Left" Margin="30,467,0,0" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="cbbCameraOption" HorizontalAlignment="Left" Margin="131,461,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="OpticalFlow_SelectionChanged">
+                            <ComboBoxItem Content="Option 1 - 30fps - 28 x 28"/>
+                            <ComboBoxItem Content="Option 2 - 60fps - 12 x 12"/>
+                            <ComboBoxItem Content="Option 3 - 30fps - 20 x 20"/>
+                            <ComboBoxItem Content="Option 4 - 15fps - 56 x 56"/>
+                            <ComboBoxItem Content="Option 5 - 15fps - 40 x 40"/>
+                            <ComboBoxItem Content="Option 6 - 4fps - 80 x 80"/>
+                            <ComboBoxItem Content="Option 7 - 4fps - 80 x 80"/>
+                            <ComboBoxItem Content="Option 8 - 120fps - 120 x 120"/>
+                        </ComboBox>
+                        <Label x:Name="labCameraFov" Content="Field of View" HorizontalAlignment="Left" Margin="30,502,0,0" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="cbbCameraFov" HorizontalAlignment="Left" Margin="131,496,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="OpticalFlow_SelectionChanged">
+                            <ComboBoxItem Content="100"/>
+                            <ComboBoxItem Content="50"/>
+                        </ComboBox>
+                        <Label x:Name="labCamera_Copy" Content="Camera" HorizontalAlignment="Left" Margin="30,397,0,0" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="cbbCam" HorizontalAlignment="Left" Margin="131,391,0,0" VerticalAlignment="Top" Width="75" DropDownClosed="cbbPosHld_DropDownClosed">
+                            <ComboBoxItem Content="Disable"/>
+                            <ComboBoxItem Content="Enable"/>
+                        </ComboBox>
+                        <Slider x:Name="sldCamImageWidth" HorizontalAlignment="Left" Margin="80,61,0,0" VerticalAlignment="Top" Width="332" TickPlacement="Both" TickFrequency="25" Maximum="640" SmallChange="1" Minimum="1" Value="23" ValueChanged="sldCamImageWidth_ValueChanged"/>
+                        <Slider x:Name="sldCamImageHeight" HorizontalAlignment="Left" Margin="-70,210,0,0" VerticalAlignment="Top" Width="249" TickPlacement="Both" TickFrequency="25" Maximum="480" SmallChange="1" Minimum="1" Value="457" RenderTransformOrigin="0.5,0.5" ValueChanged="sldCamImageHeight_ValueChanged">
+                            <Slider.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <Label x:Name="labCamImageSize" Content="23 x 23" HorizontalAlignment="Left" Margin="35,68,0,0" VerticalAlignment="Top" Width="44" FontSize="10"/>
+                        <CheckBox x:Name="cbxLockCamImageRatio" Content="Lock aspect ratio" HorizontalAlignment="Left" Margin="78,355,0,0" VerticalAlignment="Top" Foreground="Black" IsChecked="True"/>
+                    </Grid>
+                </Viewbox>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

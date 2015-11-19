@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechJectSDK", "TechJectSDK\TechJectSDK.csproj", "{2226FEBE-0ECD-468F-8A90-C61007C34FD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolePacketViewer", "ConsolePacketViewer\ConsolePacketViewer.csproj", "{B0942204-4F44-479B-9EBC-F94841075B82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaUtilityWF", "AlphaUtilityWF\AlphaUtilityWF.csproj", "{BC68440F-6EE1-4C08-A6C7-8889A274109E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2226FEBE-0ECD-468F-8A90-C61007C34FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2226FEBE-0ECD-468F-8A90-C61007C34FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2226FEBE-0ECD-468F-8A90-C61007C34FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2226FEBE-0ECD-468F-8A90-C61007C34FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0942204-4F44-479B-9EBC-F94841075B82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0942204-4F44-479B-9EBC-F94841075B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0942204-4F44-479B-9EBC-F94841075B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0942204-4F44-479B-9EBC-F94841075B82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC68440F-6EE1-4C08-A6C7-8889A274109E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC68440F-6EE1-4C08-A6C7-8889A274109E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC68440F-6EE1-4C08-A6C7-8889A274109E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC68440F-6EE1-4C08-A6C7-8889A274109E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

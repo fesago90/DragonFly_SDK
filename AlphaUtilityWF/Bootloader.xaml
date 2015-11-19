@@ -1,0 +1,14 @@
+﻿<Window x:Name="BootloaderWindow" x:Class="AlphaUtilityWF.Bootloader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bootloader" Height="230" Width="500" Closed="BootloaderWindow_Closed" Loaded="BootloaderWindow_Loaded">
+    <Grid Background="#FFD5D8DD">
+        <Button x:Name="btnSelectHex" Content="Select Hex file" HorizontalAlignment="Left" Margin="40,29,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.12,0.45" Height="30" Click="btnSelectHex_Click"/>
+        <Button x:Name="btnConnectBootloader" Content="Connect to Bootloader" HorizontalAlignment="Left" Margin="175,29,0,0" VerticalAlignment="Top" Width="140" RenderTransformOrigin="0.12,0.45" Height="30" Click="btnConnectBootloader_Click"/>
+        <Button x:Name="btnUploadHex" Content="Upload" HorizontalAlignment="Left" Margin="340,29,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.12,0.45" Height="30" Click="btnUploadHex_Click" IsEnabled="False"/>
+        <Label Content="Connect to Bootloader" HorizontalAlignment="Left" Margin="40,84,0,0" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="prbConnectBootloader" HorizontalAlignment="Left" Height="15" Margin="40,105,0,0" VerticalAlignment="Top" Width="410"/>
+        <Label Content="Upload Prograss" HorizontalAlignment="Left" Margin="40,133,0,0" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="prbUpload" HorizontalAlignment="Left" Height="15" Margin="40,154,0,0" VerticalAlignment="Top" Width="410"/>
+    </Grid>
+</Window>
